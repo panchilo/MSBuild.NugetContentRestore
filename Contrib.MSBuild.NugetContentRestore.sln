@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contrib.MSBuild.NugetContentRestore.Tasks", "Contrib.MSBuild.NugetContentRestore.Tasks\Contrib.MSBuild.NugetContentRestore.Tasks.csproj", "{101AC75D-C470-4614-80F2-1F8D5A08418A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{CE4F1D48-3030-4637-8349-794F2B4BD0D0} = {CE4F1D48-3030-4637-8349-794F2B4BD0D0}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{101AC75D-C470-4614-80F2-1F8D5A08418A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{101AC75D-C470-4614-80F2-1F8D5A08418A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{101AC75D-C470-4614-80F2-1F8D5A08418A}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{101AC75D-C470-4614-80F2-1F8D5A08418A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{101AC75D-C470-4614-80F2-1F8D5A08418A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{101AC75D-C470-4614-80F2-1F8D5A08418A}.Release|x64.ActiveCfg = Release|Any CPU
+		{CE4F1D48-3030-4637-8349-794F2B4BD0D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE4F1D48-3030-4637-8349-794F2B4BD0D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE4F1D48-3030-4637-8349-794F2B4BD0D0}.Debug|x64.ActiveCfg = Debug|x64
+		{CE4F1D48-3030-4637-8349-794F2B4BD0D0}.Debug|x64.Build.0 = Debug|x64
+		{CE4F1D48-3030-4637-8349-794F2B4BD0D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE4F1D48-3030-4637-8349-794F2B4BD0D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE4F1D48-3030-4637-8349-794F2B4BD0D0}.Release|x64.ActiveCfg = Release|x64
+		{CE4F1D48-3030-4637-8349-794F2B4BD0D0}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
