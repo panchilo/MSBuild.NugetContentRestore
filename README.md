@@ -2,6 +2,15 @@
 MSBuild task to restore Nuget content files to project folder
 
 ##Introduction
+MSBuild.NugetContentRestore takes care of copying your Nuget content files to your project folder. This is helpful specially for HTML front-end packages like angularjs, bootstrap or any Nuget package that contains a Content folder.
+During installation of the front-end package (using Install-Package), all Package Content is copied to your project folder. The problem is that, in general, you don't want to check those files into your version control system. Your would expect that "nuget restore" will also take care of copying the content files but this is not the case. This issue has been repetitively reported here:
+- http://nuget.codeplex.com/workitem/2094
+- http://nuget.codeplex.com/workitem/1239
+And Jeff Handley explained why this is not the case here:
+- http://jeffhandley.com/archive/2013/12/09/nuget-package-restore-misconceptions.aspx
+Other interesting solution to workaround this issue is available here:
+- https://github.com/baseclass/Contrib.Nuget
+I wanted to keep things simpler and let the project take care of the hard work. 
 
 ##Download
 To install MSBuild.NugetContentRestore, run the following command in the Package Manager Console:
