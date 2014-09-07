@@ -1,3 +1,3 @@
-Contrib.MSBuild.NugetContentRestore Readme.txt
+MSBuild.NugetContentRestore Readme.txt
 ==============================================
 

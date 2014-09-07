@@ -1,4 +1,4 @@
-Contrib.MSBuild.NugetContentRestore.Tasks/bin/
-Contrib.MSBuild.NugetContentRestore.Tasks/obj/
+MSBuild.NugetContentRestore.Tasks/bin/
+MSBuild.NugetContentRestore.Tasks/obj/
 *.suo
 *.user

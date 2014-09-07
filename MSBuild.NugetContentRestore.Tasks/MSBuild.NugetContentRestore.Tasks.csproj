@@ -7,8 +7,8 @@
     <ProjectGuid>{101AC75D-C470-4614-80F2-1F8D5A08418A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Contrib.MSBuild.NugetContentRestore.Tasks</RootNamespace>
-    <AssemblyName>Contrib.MSBuild.NugetContentRestore</AssemblyName>
+    <RootNamespace>MSBuild.NugetContentRestore.Tasks</RootNamespace>
+    <AssemblyName>MSBuild.NugetContentRestore</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -40,16 +40,14 @@
   <ItemGroup>
     <Compile Include="Extensions\DirectoryExtensions.cs" />
     <Compile Include="Entities\NuGetPackage.cs" />
-    <Compile Include="NuGetContentRestoreTask.cs" />
+    <Compile Include="NugetContentRestoreTask.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\Wildcard.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>
   <Target Name="AfterBuild">
+    <Copy SourceFiles="$(OutputPath)\MSBuild.NugetContentRestore.dll" DestinationFolder="$(SolutionDir)\Output" />
   </Target>
-  -->
 </Project>

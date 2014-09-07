@@ -1,9 +1,10 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using Contrib.MSBuild.NugetContentRestore.Tasks.Utilities;
 
-namespace Contrib.MSBuild.NugetContentRestore.Tasks.Extensions
+using MSBuild.NugetContentRestore.Tasks.Utilities;
+
+namespace MSBuild.NugetContentRestore.Tasks.Extensions
 {
     public static class DirectoryExtensions
     {

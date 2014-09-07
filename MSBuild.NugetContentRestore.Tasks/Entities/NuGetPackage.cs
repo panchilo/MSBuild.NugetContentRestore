@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Xml.Serialization;
 
-namespace Contrib.MSBuild.NugetContentRestore.Tasks.Entities
+namespace MSBuild.NugetContentRestore.Tasks.Entities
 {
     [XmlRoot("packages")]  
     public class NuGetPackageConfiguration

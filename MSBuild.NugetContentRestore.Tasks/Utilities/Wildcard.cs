@@ -1,9 +1,10 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace Contrib.MSBuild.NugetContentRestore.Tasks.Utilities
+namespace MSBuild.NugetContentRestore.Tasks.Utilities
 {
-    /// Article: http://www.codeproject.com/Articles/11556/Converting-Wildcards-to-Regexes
-    /// Author: Rei Miyasaka
+    // Article: http://www.codeproject.com/Articles/11556/Converting-Wildcards-to-Regexes
+    // Author: Rei Miyasaka
+	
     /// <summary>
     /// Represents a wildcard running on the
     /// <see cref="System.Text.RegularExpressions"/> engine.

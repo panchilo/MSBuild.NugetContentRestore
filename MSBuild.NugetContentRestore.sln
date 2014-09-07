@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contrib.MSBuild.NugetContentRestore.Tasks", "Contrib.MSBuild.NugetContentRestore.Tasks\Contrib.MSBuild.NugetContentRestore.Tasks.csproj", "{101AC75D-C470-4614-80F2-1F8D5A08418A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSBuild.NugetContentRestore.Tasks", "MSBuild.NugetContentRestore.Tasks\MSBuild.NugetContentRestore.Tasks.csproj", "{101AC75D-C470-4614-80F2-1F8D5A08418A}"
 	ProjectSection(ProjectDependencies) = postProject
 		{CE4F1D48-3030-4637-8349-794F2B4BD0D0} = {CE4F1D48-3030-4637-8349-794F2B4BD0D0}
 	EndProjectSection
