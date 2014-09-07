@@ -8,7 +8,7 @@ MSBuild task to restore Nuget content files to project folder
 
 ##Usage
 
-#License
+##License
 The MIT License (MIT)
 
 Copyright (c) 2014, Francisco Lopez
