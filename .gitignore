@@ -1,4 +1,6 @@
 MSBuild.NugetContentRestore.Tasks/bin/
 MSBuild.NugetContentRestore.Tasks/obj/
+Output/
+*.nupkg
 *.suo
 *.user
