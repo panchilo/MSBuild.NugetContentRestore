@@ -19,7 +19,7 @@ namespace MSBuild.NugetContentRestore.Tasks
         #region Private Members
 
         private readonly string[] _folders = new[] { "Scripts", "Images", "fonts", "content" };
-        private readonly string[] _ignoreFilePatterns = new[] { "*.transform", "*.install.xdt" };
+        private readonly string[] _ignoreFilePatterns = new[] { "*.transform", "*.install.xdt", "*.pp" };
 
         private string _configFileFullPath;
         #endregion
