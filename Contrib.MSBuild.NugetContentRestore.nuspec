@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Contrib.MSBuild.NugetContentRestore</id>
+    <version>0.1.2</version>
+    <authors>Francisco Lopez</authors>
+    <owners>Francisco Lopez</owners>
+    <licenseUrl>https://github.com/panchilo/Contrib.MSBuild.NugetContentRestore/blob/master/LICENSE.md</licenseUrl>
+    <projectUrl>https://github.com/panchilo/Contrib.MSBuild.NugetContentRestore</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>MSBuild task to restore Nuget content files to project folder</description>
+    <releaseNotes>Initial release</releaseNotes>
+    <copyright>Copyright 2014 Francisco Lopez</copyright>
+    <tags>nuget content restore msbuild task</tags>
+  </metadata>
+  <files>
+    <file src="Output\Contrib.MSBuild.NugetContentRestore.dll" target="lib\Contrib.MSBuild.NugetContentRestore.dll" />
+    <file src="readme.txt" target="" />
+  </files>
+</package>
