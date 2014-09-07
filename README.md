@@ -17,7 +17,7 @@ After installing MSBuild.NugetContentRestore using NuGet, your Visual Studio Pro
 	  <NugetContentRestoreTask SolutionDir="$(SolutionDir)" ProjectDir="$(ProjectDir)" />
 	</Target>
 
-All NuGet Packages Content Folders will be copied to your project folder right before you is built.
+All NuGet Packages Content Folders will be copied to your project folder right before is built.
 
 ##License
 The MIT License (MIT)
