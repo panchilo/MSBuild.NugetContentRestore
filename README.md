@@ -1,10 +1,12 @@
 #MSBuild.NugetContentRestore
-
 MSBuild task to restore Nuget content files to project folder
 
 ##Introduction
 
 ##Download
+To install MSBuild.NugetContentRestore, run the following command in the Package Manager Console
+    PM> Install-Package MSBuild.NugetContentRestore
+More information about MSBuild.NugetContentRestore NuGet Package available at https://www.nuget.org/packages/MSBuild.NugetContentRestore/
 
 ##Usage
 
