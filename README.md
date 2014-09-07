@@ -32,6 +32,8 @@ After installing MSBuild.NugetContentRestore using NuGet, your Visual Studio Pro
 
 All NuGet Packages Content Folders will be copied to your project folder right before is built.
 
+Remember to manually ignore the content folders (~/ProjectFolder/Scripts, Content, Fonts, Images) in your revision control software.
+
 ##License
 The MIT License (MIT)
 
