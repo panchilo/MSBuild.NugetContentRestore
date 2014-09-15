@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>MSBuild.NugetContentRestore</id>
-    <version>0.1.4</version>
+    <version>0.1.5</version>
     <authors>Francisco Lopez</authors>
     <owners>Francisco Lopez</owners>
     <projectUrl>https://github.com/panchilo/MSBuild.NugetContentRestore</projectUrl>
