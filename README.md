@@ -24,11 +24,7 @@ To install MSBuild.NugetContentRestore, run the following command in the Package
 More information about MSBuild.NugetContentRestore NuGet Package available at https://www.nuget.org/packages/MSBuild.NugetContentRestore/
 
 ##Usage
-After installing MSBuild.NugetContentRestore using NuGet, your Visual Studio Project (.csproj, .vbproj) will have a reference to MSBuild.NugetContentRestore Task. The only remaining step is to use it. Here is an example of how (and when) I use it. Edit your project file so it looks something like this:
-
-	<Target Name="BeforeBuild">
-	  <NugetContentRestoreTask SolutionDir="$(SolutionDir)" ProjectDir="$(ProjectDir)" />
-	</Target>
+After installing MSBuild.NugetContentRestore using NuGet, your Visual Studio Project (.csproj, .vbproj) will have a reference to MSBuild.NugetContentRestore Task. Starting on version 0.1.4, I added an install.ps1 and uninstall.ps1 to take care of adding NugetContentRestoreTask to a BeforeBuild Target.
 
 All NuGet Packages Content Folders will be copied to your project folder right before is built.
 
