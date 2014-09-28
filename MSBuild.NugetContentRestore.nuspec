@@ -2,14 +2,21 @@
 <package>
   <metadata>
     <id>MSBuild.NugetContentRestore</id>
-    <version>0.1.5</version>
+    <version>0.1.6</version>
     <authors>Francisco Lopez</authors>
     <owners>Francisco Lopez</owners>
     <projectUrl>https://github.com/panchilo/MSBuild.NugetContentRestore</projectUrl>
     <licenseUrl>https://github.com/panchilo/MSBuild.NugetContentRestore#license</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>MSBuild task to restore Nuget content files to project folder</description>
-    <releaseNotes>Added install.ps1 and uninstall.ps1 to automatically add BeforeBuild Target with NugetContentRestoreTask.</releaseNotes>
+    <releaseNotes>
+	  * 0.1.6
+			- fix #5: Error in importing task if SolutionDir parameter not available.
+	  * 0.1.5
+			- add #3: install.ps1 and uninstall.ps1 to automatically add BeforeBuild Target with NugetContentRestoreTask.
+	  * 0.1.3
+			- Initial release
+	</releaseNotes>
     <copyright>Copyright 2014, Francisco Lopez</copyright>
     <tags>nuget content restore msbuild task</tags>
   </metadata>

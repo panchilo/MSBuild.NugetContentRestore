@@ -4,3 +4,4 @@ Output/
 *.nupkg
 *.suo
 *.user
+build.bat

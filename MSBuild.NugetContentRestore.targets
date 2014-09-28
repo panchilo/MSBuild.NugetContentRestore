@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-  <PropertyGroup>
-    <NugetContentRestorePath>$(SolutionDir)\packages\MSBuild.NugetContentRestore.0.1.5\build\net40\</NugetContentRestorePath>
-    <NugetContentRestoreLib>$(NugetContentRestorePath)\MSBuild.NugetContentRestore.dll</NugetContentRestoreLib>
-  </PropertyGroup>
-
-  <UsingTask AssemblyFile="$(NugetContentRestoreLib)" TaskName="NugetContentRestoreTask" />
+  <UsingTask AssemblyFile="MSBuild.NugetContentRestore.dll" TaskName="NugetContentRestoreTask" />
 
 </Project>
