@@ -32,6 +32,8 @@ namespace MSBuild.NugetContentRestore.Tasks
         public string[] AdditionalFolders { get; set; }
         public string[] AdditionalIgnoreFilePatterns { get; set; }
 
+        public bool CopyRootContent { get; set; }
+
         [Required]
         public string SolutionDir { get; set; }
 
@@ -65,11 +67,21 @@ namespace MSBuild.NugetContentRestore.Tasks
             {
                 var packageFullPath = Path.Combine(SolutionDir, "packages", package.FolderName);
                 Log.LogMessage(MessageImportance.Low, "NugetContentRestore :: {0} :: FullPath='{1}'", package.FolderName, packageFullPath);
-                if (!Directory.Exists(packageFullPath)) continue;
+                if (!Directory.Exists(packageFullPath))
+                {
+                    Log.LogMessage(MessageImportance.Low, "Could not find {0}", packageFullPath);
+                    continue;
+                }
 
                 var packageContentsFullPath = Path.Combine(packageFullPath, "Content");
                 Log.LogMessage(MessageImportance.Low, "NugetContentRestore :: {0} :: ContentsFullPath='{1}'", package.FolderName, packageContentsFullPath);
-                if (!Directory.Exists(packageContentsFullPath)) continue;
+                if (!Directory.Exists(packageContentsFullPath))
+                {
+                    Log.LogMessage(MessageImportance.Low, "'{0}' not found", packageContentsFullPath);
+                    continue;
+                }
+
+                Log.LogMessage(MessageImportance.Low, "Found '{0}'", packageContentsFullPath);
 
                 // Create Regex List for Ignore File Patterns
                 var ignoreFilePatternsArray = _ignoreFilePatterns;
@@ -84,7 +96,11 @@ namespace MSBuild.NugetContentRestore.Tasks
                 foreach (var folder in _folders)
                 {
                     var sourceFolderInfo = new DirectoryInfo(Path.Combine(packageContentsFullPath, folder));
-                    if (!sourceFolderInfo.Exists) continue;
+                    if (!sourceFolderInfo.Exists)
+                    {
+                        Log.LogMessage(MessageImportance.Low, "'{0}' not found", sourceFolderInfo);
+                        continue;
+                    }
 
                     Log.LogMessage(MessageImportance.High, "NugetContentRestore :: {0} :: {1} :: Restoring content files", package.FolderName, folder);
                     sourceFolderInfo.CopyTo(Path.Combine(ProjectDir, folder), true, filePatterns.ToArray());
@@ -99,6 +115,14 @@ namespace MSBuild.NugetContentRestore.Tasks
 
 					Log.LogMessage(MessageImportance.High, "NugetContentRestore :: {0} :: {1} :: Restoring content files", package.FolderName, folder);
                     sourceFolderInfo.CopyTo(Path.Combine(ProjectDir, folder), true, filePatterns.ToArray());
+                }
+
+                // Copy everything from the root of the Content/ folder (CopyRootContent)
+                if (CopyRootContent)
+                {
+                    var rootContentFolder = new DirectoryInfo(packageContentsFullPath);
+                    Log.LogMessage(MessageImportance.High, "NugetContentRestore :: {0} :: {1} :: Restoring content files", package.FolderName, ".");
+                    rootContentFolder.CopyTo(ProjectDir, false, filePatterns.ToArray());
                 }
             }
 
