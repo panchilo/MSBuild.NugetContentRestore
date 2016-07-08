@@ -30,6 +30,14 @@ All NuGet Packages Content Folders will be copied to your project folder right b
 
 Remember to manually ignore the content folders (~/ProjectFolder/Scripts, Content, Fonts, Images) in your revision control software.
 
+###Additional Folders Syntax
+To include folders other than the defaults (Scripts, Images, contents, fonts), one must edit the csproj entry (added during the install of this package) with the extra parameter "AdditonalFolders". Each additonal folder should be separated with a semi colon (';').
+
+An example of two extra folders (content/static, content/Views) being included to the content restore task:
+
+    <NugetContentRestoreTask AdditionalFolders="static;Views" SolutionDir="$(SolutionDir)" ProjectDir="$(ProjectDir)" />
+
+
 ##License
 The MIT License (MIT)
 
