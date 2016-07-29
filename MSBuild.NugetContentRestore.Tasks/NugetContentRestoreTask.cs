@@ -38,6 +38,15 @@ namespace MSBuild.NugetContentRestore.Tasks
         [Required]
         public string ProjectDir { get; set; }
 
+        /// <summary>
+        /// Enable SmartRestore (default: true)
+        /// 
+        /// SmartRestore detects if a file has changed in the source (package folders) compared to a target file.
+        /// If it hasn't changed, it will skip the file copy, which for packages with large content folders, can significantly improve Visual Studio build performance.
+        /// </summary>
+        public bool EnableSmartRestore { get; set; } = true;
+
+
         public string ConfigFileFullPath
         {
             get
@@ -55,9 +64,12 @@ namespace MSBuild.NugetContentRestore.Tasks
         {
             if (!IsValidInput()) return false;
 
+            var startTime = System.DateTime.Now;
+
             Log.LogMessage(MessageImportance.Low, "NugetContentRestore :: SolutionDir='{0}'", SolutionDir);
             Log.LogMessage(MessageImportance.Low, "NugetContentRestore :: ProjectDir='{0}'", ProjectDir);
             Log.LogMessage(MessageImportance.Low, "NugetContentRestore :: ConfigFileFullPath='{0}'", ConfigFileFullPath);
+            Log.LogMessage(MessageImportance.Low, "NugetContentRestore :: EnableSmartRestore='{0}'", EnableSmartRestore.ToString());
 
             // Get NuGet Package Configuration
             var packages = GetPackages();
@@ -87,7 +99,7 @@ namespace MSBuild.NugetContentRestore.Tasks
                     if (!sourceFolderInfo.Exists) continue;
 
                     Log.LogMessage(MessageImportance.High, "NugetContentRestore :: {0} :: {1} :: Restoring content files", package.FolderName, folder);
-                    sourceFolderInfo.CopyTo(Path.Combine(ProjectDir, folder), true, filePatterns.ToArray());
+                    sourceFolderInfo.CopyTo(Path.Combine(ProjectDir, folder), true, filePatterns.ToArray(), EnableSmartRestore);
                 }
 
                 // Restore Package Content for additional folders (AdditionalFolder)
@@ -98,9 +110,12 @@ namespace MSBuild.NugetContentRestore.Tasks
                     if (!sourceFolderInfo.Exists) continue;
 
 					Log.LogMessage(MessageImportance.High, "NugetContentRestore :: {0} :: {1} :: Restoring content files", package.FolderName, folder);
-                    sourceFolderInfo.CopyTo(Path.Combine(ProjectDir, folder), true, filePatterns.ToArray());
+                    sourceFolderInfo.CopyTo(Path.Combine(ProjectDir, folder), true, filePatterns.ToArray(), EnableSmartRestore);
                 }
             }
+
+            var elapsed = System.DateTime.Now - startTime;
+            Log.LogMessage(MessageImportance.High, "NugetContentRestore :: Completed restore of all package contents in {0} seconds", elapsed.TotalSeconds);
 
             return true;
         }

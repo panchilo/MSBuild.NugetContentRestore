@@ -38,6 +38,16 @@ An example of two extra folders (content/static, content/Views) being included t
     <NugetContentRestoreTask AdditionalFolders="static;Views" SolutionDir="$(SolutionDir)" ProjectDir="$(ProjectDir)" />
 
 
+###SmartRestore
+SmartRestore detects if a file has changed in the source (package folders) compared to a target file (based on file date only).
+If it hasn't changed, it will skip the file copy, which for packages with large content folders, can significantly improve Visual Studio build performance.  In one large sample, content restore time reduced from 20 seconds down to 2 seconds.
+
+SmartRestore is enabled by default.
+
+To disable SmartRestore, add the `EnableSmartRestore="false"` attribute to the content restore task.
+
+	
+	
 ##License
 The MIT License (MIT)
 
