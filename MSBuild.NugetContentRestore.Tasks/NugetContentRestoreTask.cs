@@ -18,7 +18,7 @@ namespace MSBuild.NugetContentRestore.Tasks
 
         #region Private Members
 
-        private readonly string[] _folders = new[] { "Scripts", "Images", "fonts", "content" };
+        private readonly string[] _folders = new[] { "Scripts", "Images", "fonts", "content","native" };
         private readonly string[] _ignoreFilePatterns = new[] { "*.transform", "*.install.xdt", "*.pp" };
 
         private string _configFileFullPath;
@@ -87,7 +87,13 @@ namespace MSBuild.NugetContentRestore.Tasks
                     if (!sourceFolderInfo.Exists) continue;
 
                     Log.LogMessage(MessageImportance.High, "NugetContentRestore :: {0} :: {1} :: Restoring content files", package.FolderName, folder);
+                    if (folder.ToLower()=="native")
+                    {
+                        sourceFolderInfo.CopyTo(ProjectDir, true, filePatterns.ToArray());
+                    }
+                    else { 
                     sourceFolderInfo.CopyTo(Path.Combine(ProjectDir, folder), true, filePatterns.ToArray());
+                    }
                 }
 
                 // Restore Package Content for additional folders (AdditionalFolder)

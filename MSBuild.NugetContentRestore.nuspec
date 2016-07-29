@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>MSBuild.NugetContentRestore</id>
-    <version>0.1.6</version>
+    <version>0.1.10</version>
     <authors>Francisco Lopez</authors>
     <owners>Francisco Lopez</owners>
     <projectUrl>https://github.com/panchilo/MSBuild.NugetContentRestore</projectUrl>
@@ -21,9 +21,11 @@
     <tags>nuget content restore msbuild task</tags>
   </metadata>
   <files>
+    <file src="Output\MSBuild.NugetContentRestore.dll" target="build\native" />
+    <file src="MSBuild.NugetContentRestore.targets" target="build\native" />
     <file src="Output\MSBuild.NugetContentRestore.dll" target="build\net40" />
     <file src="MSBuild.NugetContentRestore.targets" target="build\net40" />
-	<file src="tools\" target="tools" />
+    <file src="tools\" target="tools" />
     <file src="readme.txt" target="" />
   </files>
 </package>
