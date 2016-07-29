@@ -8,6 +8,7 @@
     <projectUrl>https://github.com/panchilo/MSBuild.NugetContentRestore</projectUrl>
     <licenseUrl>https://github.com/panchilo/MSBuild.NugetContentRestore#license</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
+	<developmentDependency>true</developmentDependency>
     <description>MSBuild task to restore Nuget content files to project folder</description>
     <releaseNotes>
 	  * 0.1.6
