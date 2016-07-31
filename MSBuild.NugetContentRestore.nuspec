@@ -2,14 +2,18 @@
 <package>
   <metadata>
     <id>MSBuild.NugetContentRestore</id>
-    <version>0.1.6</version>
+    <version>0.1.7</version>
     <authors>Francisco Lopez</authors>
     <owners>Francisco Lopez</owners>
     <projectUrl>https://github.com/panchilo/MSBuild.NugetContentRestore</projectUrl>
     <licenseUrl>https://github.com/panchilo/MSBuild.NugetContentRestore#license</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
+	<developmentDependency>true</developmentDependency>
     <description>MSBuild task to restore Nuget content files to project folder</description>
     <releaseNotes>
+	  * 0.1.7
+			- Add support for SmartRestore (improves content restore/build time)
+			- fix #14 - Marked nuget package as development dependency only
 	  * 0.1.6
 			- fix #5: Error in importing task if SolutionDir parameter not available.
 	  * 0.1.5
