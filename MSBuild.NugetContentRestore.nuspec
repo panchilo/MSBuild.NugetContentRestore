@@ -21,7 +21,7 @@
 	  * 0.1.3
 			- Initial release
 	</releaseNotes>
-    <copyright>Copyright 2014, Francisco Lopez</copyright>
+    <copyright>Copyright 2016, Francisco Lopez</copyright>
     <tags>nuget content restore msbuild task</tags>
   </metadata>
   <files>

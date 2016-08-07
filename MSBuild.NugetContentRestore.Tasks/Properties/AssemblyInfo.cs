@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("MSBuild.NugetContentRestore")]
 [assembly: AssemblyProduct("MSBuild.NugetContentRestore")]
 [assembly: AssemblyDescription("MSBuild task to restore Nuget content files to project folder")]
-[assembly: AssemblyCopyright("Copyright © 2014, Francisco Lopez")]
+[assembly: AssemblyCopyright("Copyright © 2016, Francisco Lopez")]
 [assembly: AssemblyCulture("")]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
