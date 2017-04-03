@@ -1,7 +1,7 @@
-#MSBuild.NugetContentRestore
+# MSBuild.NugetContentRestore
 MSBuild task to restore Nuget content files to project folder
 
-##Introduction
+## Introduction
 MSBuild.NugetContentRestore takes care of copying your Nuget content files to your project folder. This is helpful specially for HTML front-end packages like angularjs, bootstrap or any Nuget package that contains a Content folder.
 
 During installation of the front-end package (using Install-Package), all Package Content are copied to your project folder. The problem is that, in general, you don't want to check these files into your revision control system like git or svn. You would expect that "nuget restore" will also take care of copying the content files but this is not the case. This issue has been repetitively reported here:
@@ -16,21 +16,21 @@ Other interesting solution to workaround this issue is available here:
 
 I wanted to keep things simpler and let the project take care of the hard work. 
 
-##Download
+## Download
 To install MSBuild.NugetContentRestore, run the following command in the Package Manager Console:
     
 	PM> Install-Package MSBuild.NugetContentRestore
 	
 More information about MSBuild.NugetContentRestore NuGet Package available at https://www.nuget.org/packages/MSBuild.NugetContentRestore/
 
-##Usage
+## Usage
 After installing MSBuild.NugetContentRestore using NuGet, your Visual Studio Project (.csproj, .vbproj) will have a reference to MSBuild.NugetContentRestore Task. Starting on version 0.1.4, I added an install.ps1 and uninstall.ps1 to take care of adding NugetContentRestoreTask to a BeforeBuild Target.
 
 All NuGet Packages Content Folders will be copied to your project folder right before is built.
 
 Remember to manually ignore the content folders (~/ProjectFolder/Scripts, Content, Fonts, Images) in your revision control software.
 
-###Additional Folders Syntax
+### Additional Folders Syntax
 To include folders other than the defaults (Scripts, Images, contents, fonts), one must edit the csproj entry (added during the install of this package) with the extra parameter "AdditonalFolders". Each additonal folder should be separated with a semi colon (';').
 
 An example of two extra folders (content/static, content/Views) being included to the content restore task:
@@ -38,7 +38,7 @@ An example of two extra folders (content/static, content/Views) being included t
     <NugetContentRestoreTask AdditionalFolders="static;Views" SolutionDir="$(SolutionDir)" ProjectDir="$(ProjectDir)" />
 
 
-###SmartRestore
+### SmartRestore
 SmartRestore detects if a file has changed in the source (package folders) compared to a target file (based on file date only).
 If it hasn't changed, it will skip the file copy, which for packages with large content folders, can significantly improve Visual Studio build performance.  In one large sample, content restore time reduced from 20 seconds down to 2 seconds.
 
@@ -48,7 +48,7 @@ To disable SmartRestore, add the `EnableSmartRestore="false"` attribute to the c
 
 	
 	
-##License
+## License
 The MIT License (MIT)
 
 Copyright (c) 2016, Francisco Lopez
