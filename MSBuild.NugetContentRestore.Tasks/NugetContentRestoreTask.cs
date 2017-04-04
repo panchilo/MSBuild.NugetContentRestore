@@ -32,11 +32,12 @@ namespace MSBuild.NugetContentRestore.Tasks
         public string[] AdditionalFolders { get; set; }
         public string[] AdditionalIgnoreFilePatterns { get; set; }
 
-        [Required]
         public string SolutionDir { get; set; }
 
         [Required]
         public string ProjectDir { get; set; }
+
+        public string RepositoryPath { get; set; }
 
         /// <summary>
         /// Enable SmartRestore (default: true)
@@ -67,15 +68,17 @@ namespace MSBuild.NugetContentRestore.Tasks
             var startTime = System.DateTime.Now;
 
             Log.LogMessage(MessageImportance.Low, "NugetContentRestore :: SolutionDir='{0}'", SolutionDir);
+            Log.LogMessage(MessageImportance.Low, "NugetContentRestore :: RepositoryPath='{0}'", RepositoryPath);
             Log.LogMessage(MessageImportance.Low, "NugetContentRestore :: ProjectDir='{0}'", ProjectDir);
             Log.LogMessage(MessageImportance.Low, "NugetContentRestore :: ConfigFileFullPath='{0}'", ConfigFileFullPath);
             Log.LogMessage(MessageImportance.Low, "NugetContentRestore :: EnableSmartRestore='{0}'", EnableSmartRestore.ToString());
 
             // Get NuGet Package Configuration
             var packages = GetPackages();
+            var packagesPath = RepositoryPath ?? Path.Combine(SolutionDir, "packages");
             foreach (var package in packages)
             {
-                var packageFullPath = Path.Combine(SolutionDir, "packages", package.FolderName);
+                var packageFullPath = Path.Combine(packagesPath, package.FolderName);
                 Log.LogMessage(MessageImportance.Low, "NugetContentRestore :: {0} :: FullPath='{1}'", package.FolderName, packageFullPath);
                 if (!Directory.Exists(packageFullPath)) continue;
 
@@ -126,9 +129,20 @@ namespace MSBuild.NugetContentRestore.Tasks
 
         private bool IsValidInput()
         {
-            if (!Directory.Exists(SolutionDir))
+            if (SolutionDir == null && RepositoryPath == null)
+            {
+                Log.LogError("NugetContentRestore :: At least one value must be not null SolutionDir='{0}', RepositoryPath='{1}'", SolutionDir);
+                return false;
+            }
+            if (SolutionDir != null && !Directory.Exists(SolutionDir))
             {
                 Log.LogError("NugetContentRestore :: Could not find directory SolutionDir='{0}'", SolutionDir);
+                return false;
+            }
+
+            if (RepositoryPath != null && !Directory.Exists(RepositoryPath))
+            {
+                Log.LogError("NugetContentRestore :: Could not find directory RepositoryPath='{0}'", RepositoryPath);
                 return false;
             }
 
