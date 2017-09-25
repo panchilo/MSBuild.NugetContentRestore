@@ -5,3 +5,4 @@ Output/
 *.suo
 *.user
 build.bat
+/.vs/MSBuild.NugetContentRestore/v15/sqlite3/storage.ide
