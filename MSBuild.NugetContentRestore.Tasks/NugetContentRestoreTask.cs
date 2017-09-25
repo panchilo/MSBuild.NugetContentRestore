@@ -18,8 +18,8 @@ namespace MSBuild.NugetContentRestore.Tasks
 
         #region Private Members
 
-        private readonly string[] _folders = new[] { "Scripts", "Images", "fonts", "content" };
-        private readonly string[] _ignoreFilePatterns = new[] { "*.transform", "*.install.xdt", "*.pp" };
+        private readonly string[] _folders = new[] { "App_Packages", "Scripts", "Images", "fonts", "content" };
+        private readonly string[] _ignoreFilePatterns = new[] { "*.transform", "*.install.xdt" };
 
         private string _configFileFullPath;
         #endregion
@@ -91,26 +91,15 @@ namespace MSBuild.NugetContentRestore.Tasks
                 var ignoreFilePatterns = from p in ignoreFilePatternsArray
                                          select new Wildcard(p, RegexOptions.IgnoreCase);
 
-                // Restore Package Content for predefined folders (_folders)
+                // Restore Package Content for predefined folders (Folders) and additional folders (AdditionalFolder)
                 var filePatterns = ignoreFilePatterns as Wildcard[] ?? ignoreFilePatterns.ToArray();
-                foreach (var folder in _folders)
+                foreach (var folder in Folders.Union(AdditionalFolders ?? new string[0] ))
                 {
                     var sourceFolderInfo = new DirectoryInfo(Path.Combine(packageContentsFullPath, folder));
                     if (!sourceFolderInfo.Exists) continue;
 
                     Log.LogMessage(MessageImportance.High, "NugetContentRestore :: {0} :: {1} :: Restoring content files", package.FolderName, folder);
-                    sourceFolderInfo.CopyTo(Path.Combine(ProjectDir, folder), true, filePatterns.ToArray(), EnableSmartRestore);
-                }
-
-                // Restore Package Content for additional folders (AdditionalFolder)
-                if (AdditionalFolders == null) continue;
-                foreach (var folder in AdditionalFolders)
-                {
-                    var sourceFolderInfo = new DirectoryInfo(Path.Combine(packageContentsFullPath, folder));
-                    if (!sourceFolderInfo.Exists) continue;
-
-					Log.LogMessage(MessageImportance.High, "NugetContentRestore :: {0} :: {1} :: Restoring content files", package.FolderName, folder);
-                    sourceFolderInfo.CopyTo(Path.Combine(ProjectDir, folder), true, filePatterns.ToArray(), EnableSmartRestore);
+                    sourceFolderInfo.CopyTo(Path.Combine(ProjectDir, folder), true, filePatterns.ToArray(), EnableSmartRestore, BuildEngine3.ProjectFileOfTaskNode, Log);
                 }
             }
 
