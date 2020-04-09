@@ -1,15 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.Build.Framework;
+using Microsoft.Build.Utilities;
+using MSBuild.NugetContentRestore.Tasks.Entities;
+using MSBuild.NugetContentRestore.Tasks.Extensions;
+using MSBuild.NugetContentRestore.Tasks.Utilities;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Xml.Serialization;
-
-using MSBuild.NugetContentRestore.Tasks.Entities;
-using MSBuild.NugetContentRestore.Tasks.Extensions;
-using MSBuild.NugetContentRestore.Tasks.Utilities;
-
-using Microsoft.Build.Framework;
-using Microsoft.Build.Utilities;
 
 namespace MSBuild.NugetContentRestore.Tasks
 {
@@ -32,6 +30,8 @@ namespace MSBuild.NugetContentRestore.Tasks
         public string[] AdditionalFolders { get; set; }
         public string[] AdditionalIgnoreFilePatterns { get; set; }
 
+        public string[] SpecificPackages { get; set; }
+
         [Required]
         public string SolutionDir { get; set; }
 
@@ -53,7 +53,7 @@ namespace MSBuild.NugetContentRestore.Tasks
             {
                 return _configFileFullPath ?? Path.Combine(ProjectDir, "packages.config");
             }
-            set { _configFileFullPath = value;  }
+            set { _configFileFullPath = value; }
         }
 
         #endregion
@@ -70,6 +70,7 @@ namespace MSBuild.NugetContentRestore.Tasks
             Log.LogMessage(MessageImportance.Low, "NugetContentRestore :: ProjectDir='{0}'", ProjectDir);
             Log.LogMessage(MessageImportance.Low, "NugetContentRestore :: ConfigFileFullPath='{0}'", ConfigFileFullPath);
             Log.LogMessage(MessageImportance.Low, "NugetContentRestore :: EnableSmartRestore='{0}'", EnableSmartRestore.ToString());
+            Log.LogMessage(MessageImportance.Low, "NugetContentRestore :: SpecificPackages='{0}'", SpecificPackages);
 
             // Get NuGet Package Configuration
             var packages = GetPackages();
@@ -82,6 +83,11 @@ namespace MSBuild.NugetContentRestore.Tasks
                 var packageContentsFullPath = Path.Combine(packageFullPath, "Content");
                 Log.LogMessage(MessageImportance.Low, "NugetContentRestore :: {0} :: ContentsFullPath='{1}'", package.FolderName, packageContentsFullPath);
                 if (!Directory.Exists(packageContentsFullPath)) continue;
+
+                if (SpecificPackages != null)
+                {
+                    if (!SpecificPackages.Contains(package.Name)) continue;
+                }
 
                 // Create Regex List for Ignore File Patterns
                 var ignoreFilePatternsArray = _ignoreFilePatterns;
@@ -109,7 +115,7 @@ namespace MSBuild.NugetContentRestore.Tasks
                     var sourceFolderInfo = new DirectoryInfo(Path.Combine(packageContentsFullPath, folder));
                     if (!sourceFolderInfo.Exists) continue;
 
-					Log.LogMessage(MessageImportance.High, "NugetContentRestore :: {0} :: {1} :: Restoring content files", package.FolderName, folder);
+                    Log.LogMessage(MessageImportance.High, "NugetContentRestore :: {0} :: {1} :: Restoring content files", package.FolderName, folder);
                     sourceFolderInfo.CopyTo(Path.Combine(ProjectDir, folder), true, filePatterns.ToArray(), EnableSmartRestore);
                 }
             }
