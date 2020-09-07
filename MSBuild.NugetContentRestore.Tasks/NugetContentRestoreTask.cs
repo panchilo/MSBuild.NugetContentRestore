@@ -10,6 +10,7 @@ using MSBuild.NugetContentRestore.Tasks.Utilities;
 
 using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
+using System;
 
 namespace MSBuild.NugetContentRestore.Tasks
 {
@@ -79,9 +80,10 @@ namespace MSBuild.NugetContentRestore.Tasks
                 Log.LogMessage(MessageImportance.Low, "NugetContentRestore :: {0} :: FullPath='{1}'", package.FolderName, packageFullPath);
                 if (!Directory.Exists(packageFullPath)) continue;
 
-                var packageContentsFullPath = Path.Combine(packageFullPath, "Content");
+                var packageContentsFullPath = PathCombineIfExists(packageFullPath, "content");
+                if (packageContentsFullPath == null) continue;
+
                 Log.LogMessage(MessageImportance.Low, "NugetContentRestore :: {0} :: ContentsFullPath='{1}'", package.FolderName, packageContentsFullPath);
-                if (!Directory.Exists(packageContentsFullPath)) continue;
 
                 // Create Regex List for Ignore File Patterns
                 var ignoreFilePatternsArray = _ignoreFilePatterns;
@@ -93,25 +95,12 @@ namespace MSBuild.NugetContentRestore.Tasks
 
                 // Restore Package Content for predefined folders (_folders)
                 var filePatterns = ignoreFilePatterns as Wildcard[] ?? ignoreFilePatterns.ToArray();
-                foreach (var folder in _folders)
-                {
-                    var sourceFolderInfo = new DirectoryInfo(Path.Combine(packageContentsFullPath, folder));
-                    if (!sourceFolderInfo.Exists) continue;
 
-                    Log.LogMessage(MessageImportance.High, "NugetContentRestore :: {0} :: {1} :: Restoring content files", package.FolderName, folder);
-                    sourceFolderInfo.CopyTo(Path.Combine(ProjectDir, folder), true, filePatterns.ToArray(), EnableSmartRestore);
-                }
+                CopyFolders(package, packageContentsFullPath, _folders, filePatterns);
 
                 // Restore Package Content for additional folders (AdditionalFolder)
                 if (AdditionalFolders == null) continue;
-                foreach (var folder in AdditionalFolders)
-                {
-                    var sourceFolderInfo = new DirectoryInfo(Path.Combine(packageContentsFullPath, folder));
-                    if (!sourceFolderInfo.Exists) continue;
-
-					Log.LogMessage(MessageImportance.High, "NugetContentRestore :: {0} :: {1} :: Restoring content files", package.FolderName, folder);
-                    sourceFolderInfo.CopyTo(Path.Combine(ProjectDir, folder), true, filePatterns.ToArray(), EnableSmartRestore);
-                }
+                CopyFolders(package, packageContentsFullPath, AdditionalFolders, filePatterns);
             }
 
             var elapsed = System.DateTime.Now - startTime;
@@ -157,6 +146,36 @@ namespace MSBuild.NugetContentRestore.Tasks
                 packages = nugetConfiguration.Packages;
             }
             return packages;
+        }
+
+        private static string PathCombineIfExists(string packageFullPath, string folder)
+        {
+            var subFolders = Directory.GetDirectories(packageFullPath);
+            foreach (var subFolder in subFolders)
+            {
+                if (Path.GetFileName(subFolder).ToLower() == folder.ToLower())
+                    return subFolder;
+            }
+
+            return null;
+        }
+
+        private void CopyFolders(Package package, string packageContentsFullPath, string[] folders, Wildcard[] filePatterns)
+        {
+            foreach (var f1 in folders)
+            {
+                var folder = PathCombineIfExists(packageContentsFullPath, f1);
+                if (folder == null) continue;
+
+                var realFolderShortName = Path.GetFileName(folder);
+
+                var destinationFolder = Path.Combine(ProjectDir, realFolderShortName);
+                Log.LogMessage(MessageImportance.High, "NugetContentRestore :: {0} :: Restoring files {1} -> {2}", package.FolderName, folder, destinationFolder);
+
+                var sourceFolderInfo = new DirectoryInfo(folder);
+                sourceFolderInfo.CopyTo(destinationFolder, true, filePatterns.ToArray(), EnableSmartRestore);
+            }
+
         }
         #endregion
 
