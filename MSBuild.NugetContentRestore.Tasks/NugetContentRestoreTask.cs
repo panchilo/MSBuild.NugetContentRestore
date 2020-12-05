@@ -19,7 +19,7 @@ namespace MSBuild.NugetContentRestore.Tasks
 
         #region Private Members
 
-        private readonly string[] _folders = new[] { "Scripts", "Images", "fonts", "content" };
+        private readonly string[] _folders = new[] { "Scripts", "Images", "fonts", "Content" };
         private readonly string[] _ignoreFilePatterns = new[] { "*.transform", "*.install.xdt", "*.pp" };
 
         private string _configFileFullPath;
@@ -167,9 +167,9 @@ namespace MSBuild.NugetContentRestore.Tasks
                 var folder = PathCombineIfExists(packageContentsFullPath, f1);
                 if (folder == null) continue;
 
-                var realFolderShortName = Path.GetFileName(folder);
+                var copyToFolder = Path.GetFileName(f1);
 
-                var destinationFolder = Path.Combine(ProjectDir, realFolderShortName);
+                var destinationFolder = Path.Combine(ProjectDir, copyToFolder);
                 Log.LogMessage(MessageImportance.High, "NugetContentRestore :: {0} :: Restoring files {1} -> {2}", package.FolderName, folder, destinationFolder);
 
                 var sourceFolderInfo = new DirectoryInfo(folder);
