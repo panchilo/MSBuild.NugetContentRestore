@@ -109,7 +109,7 @@ namespace MSBuild.NugetContentRestore.Tasks
                 }
 
                 // Restore Package Content for additional folders (AdditionalFolder)
-                if (AdditionalFolders == null) continue;
+                if (AdditionalFolders == null || AdditionalFolders.Count() == 0) continue;
                 foreach (var folder in AdditionalFolders)
                 {
                     var sourceFolderInfo = new DirectoryInfo(Path.Combine(packageContentsFullPath, folder));
